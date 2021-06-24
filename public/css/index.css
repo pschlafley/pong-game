@@ -1,10 +1,12 @@
-#canvas-container {
-	text-align: center;
-	border: 1px solid black;
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
-#screen {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	border: 1px solid black;
+body {
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	background-color: black;
 }
