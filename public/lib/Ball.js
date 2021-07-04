@@ -8,6 +8,7 @@ export default class Ball {
         this.r = r;
         this.c = c;
 
+        // dx and dy determine the velocity of the object in motion
         // create a random number between 1 and 4
         this.dx = (Math.random() * 4) + 1;
         // create a random number between  -4 and 4 
@@ -19,6 +20,7 @@ export default class Ball {
     }
 
     animate() {
+        // add the velocity to the x and y variables to get the ball to move
         this.x += this.dx;
         this.y += this.dy;
 
