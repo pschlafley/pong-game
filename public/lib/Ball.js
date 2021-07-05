@@ -1,6 +1,25 @@
 const canvas = document.querySelector('#screen');
 const ctx = canvas.getContext('2d');
+import Rectangle from '../lib/Rect.js';
+let mouseY = canvas.height / 2;
 
+let mouse = {
+    y: innerHeight / 2
+};
+
+addEventListener("mousemove", function (e) {
+    mouse.y = e.clientY;
+})
+
+
+const usrRect = new Rectangle(1500, mouseY, 7, 75, 'white');
+
+const getDistance = (x1, y1, x2, y2) => {
+    let xDist = x2 - x1;
+    let yDist = y2 - y1;
+
+    return Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
+}
 export default class Ball {
     constructor(x, y, r, c) {
         this.x = x;
@@ -20,6 +39,12 @@ export default class Ball {
     }
 
     animate() {
+
+        if (getDistance(this.x, this.y, usrRect.x, usrRect.y) < this.r + usrRect.width) {
+            this.dx = -this.dx;
+            this.dy = -this.dy;
+        }
+
         // add the velocity to the x and y variables to get the ball to move
         this.x += this.dx;
         this.y += this.dy;
@@ -29,11 +54,20 @@ export default class Ball {
             this.dx = -this.dx;
         };
 
+
         if (this.y + this.r > canvas.height || this.y - this.r < 0) {
             this.dy = -this.dy;
         };
 
         this.draw();
+    }
+
+    hitPaddle(paddleName) {
+        console.log(paddleName);
+        // try to stop the ball and reverse its direction if it hits the paddle rectangle
+        if (this.x + this.r > usrRect.x && this.y >= usrRect.cposY && this.y <= usrRect.cposY + 75) {
+            this.dx = -this.dx;
+        }
     }
 
     draw() {
