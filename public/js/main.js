@@ -14,8 +14,8 @@ let rectX = canvas.width * .95;
 const pongBall = new Ball(700, 300, 10, 'red');
 const usrPaddle = new Rectangle(rectX, undefined, 7, 75, 'white');
 
-function Update() {
-    requestAnimationFrame(Update);
+// function that draws the canvas, ball, and userPaddle
+const init = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     usrPaddle.draw();
@@ -23,11 +23,20 @@ function Update() {
     usrPaddle.y = mouse.y;
 
     pongBall.animate();
+};
 
+// function that will detect the collision between the ball and the user's paddle
+const collisionDetection = () => {
     if (paddleAndBallCollision(pongBall.x, pongBall.y, pongBall.r, usrPaddle.x, usrPaddle.y, usrPaddle.width, usrPaddle.height)) {
         pongBall.dx *= -1;
     }
-
 };
 
-Update();
+
+function startGame() {
+    requestAnimationFrame(startGame);
+    init();
+    collisionDetection();
+};
+
+startGame();
