@@ -1,5 +1,6 @@
 const canvas = document.querySelector('#screen');
 const ctx = canvas.getContext('2d');
+// import { mouse } from '../js/helpers';
 
 export default class Rectangle {
     constructor(x, y, width, height, c) {
@@ -8,9 +9,6 @@ export default class Rectangle {
         this.width = width;
         this.height = height;
         this.c = c;
-
-        this.cposY;
-
     }
 
     draw() {
