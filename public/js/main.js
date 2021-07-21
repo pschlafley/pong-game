@@ -1,5 +1,5 @@
 import Ball from '../lib/Ball.js';
-import Rectangle from '../lib/Rect.js';
+import Paddle from '../lib/Rect.js';
 import { paddleAndBallCollision, mouse } from './helpers.js';
 
 const canvas = document.querySelector('#screen');
@@ -8,23 +8,30 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-
 // GAME LOGIC
 
 // variable to set the rectangle's x width to 95% of the innerwidth of the window
+const halfHeight = canvas.height / 2;
+const haflWidth = canvas.width / 2;
 let rectX = canvas.width * .95;
 
-const pongBall = new Ball(700, innerHeight / 2, 10, 'red');
-const usrPaddle = new Rectangle(rectX, innerHeight / 2, 7, 75, 'white');
+const pongBall = new Ball(haflWidth, halfHeight, 10, 'red');
+const usrPaddle = new Paddle(rectX, halfHeight, 7, 75, 'white');
+const aiPaddle = new Paddle(80, halfHeight, 7, 75, 'blue');
 
 // function that draws the canvas, ball, and userPaddle
 const init = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     usrPaddle.draw();
+    aiPaddle.draw();
 
-    usrPaddle.y = mouse.y;
-    pongBall.animate();
+    if (usrPaddle.y + mouse.y + usrPaddle.height < canvas.height) {
+        usrPaddle.y = mouse.y;
+    };
+
+    pongBall.draw();
+    // pongBall.animate();
 };
 
 // function that will detect the collision between the ball and the user's paddle
@@ -41,9 +48,4 @@ const startGame = () => {
     collisionDetection();
 };
 
-
-const startScreen = () => {
-    init();
-};
-
-startScreen();
+startGame();
